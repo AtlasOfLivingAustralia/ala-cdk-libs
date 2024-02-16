@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import { PipelineStack } from './stack/cicd-pipeline-stack';
-import { AppContext, AppContextError, ProjectPrefixType } from '@ala/ala-cdk-libs';
+import { AppContext, AppContextError, ProjectPrefixType } from '../lib/';
 
 try {
 
