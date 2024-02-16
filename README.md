@@ -24,12 +24,6 @@ This template framework suports both CDK Ver2.
 
 4. [Sample Stacks](#4-sample-stacks)
 
-5. [Projects based on this framework](#5-projects-based-on-this-framework)
-
-6. [Security](#6-security)
-
-7. [License](#7-license)
-
 ## 1. AWS CDK Introduction
 
  [AWS Cloud Development Kit(CDK)](https://aws.amazon.com/cdk) is an open source software development framework to define your cloud application resources using familiar programming languages. After coding using CDK Construct and Stack, if you run it through CDK CLI, it is finally compiled and deployed through AWS CloudFormation.
@@ -340,19 +334,3 @@ Execute the following command, which will destroy all resources except RDS Datab
 ```bash
 cdk destroy *PipelineStack --context APP_CONFIG=config/ala-cdk-libs-test-config.json
 ```
-
-## 5. Projects based on this framework
-
-- [AWS CDK Deploy Pipeline using AWS CodePipeline](https://github.com/aws-samples/aws-cdk-deploy-pipeline-using-aws-codepipeline)
-- [AWS ECS DevOps using AWS CDK](https://github.com/aws-samples/aws-ecs-devops-using-aws-cdk)
-- [AWS IoT Greengrass Ver2 using AWS CDK](https://github.com/aws-samples/aws-iot-greengrass-v2-using-aws-cdk)
-- [Amazon SageMaker Built-in Algorithm MLOps Pipeline using AWS CDK](https://github.com/aws-samples/amazon-sagemaker-built-in-algorithms-mlops-pipeline-using-aws-cdk)
-- [Amazon Cognito and API Gateway based machine to machine authorization using AWS CDK](https://github.com/aws-samples/amazon-cognito-and-api-gateway-based-machine-to-machine-authorization-using-aws-cdk)
-
-## 6. Security
-
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
-
-## 7. License
-
-This library is licensed under the MIT-0 License. See the LICENSE file.
