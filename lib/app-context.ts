@@ -54,6 +54,10 @@ export class AppContext {
         this.cdkApp = new cdk.App();
         this.appContextProps = props;
 
+        if (!this.appContextProps.projectPrefixType) {
+            this.appContextProps.projectPrefixType = ProjectPrefixType.NameHyphenStage
+        }
+
         try {
             const appConfigFile = this.findAppConfigFile(props.appConfigFileKey);
 

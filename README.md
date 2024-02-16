@@ -4,7 +4,62 @@ This project is heavily based on [AWS CDK Project Template for DevOps](https://g
 
 The repository provides best practices and template framework for developing AWS Cloud Development Kit(CDK)-based applications effectively, quickly and collaboratively. In detail, practical approaches such as how to deploy to multi-environment, how to organize directories and how to manage dependencies between stacks will be introduced, and template codes are provided to support them. Gradually, these template codes will be further expanded to support various DevOps scenario.
 
-This template framework suports both CDK Ver2.
+This template framework suports greater then CDK v2.128
+
+To install this library for use to build CDK based deployments:
+
+
+- setup a CDK project:
+```bash
+mkdir aws
+cd aws
+cdk init --language=typescript
+```
+
+- restructure of the CDK project
+```bash
+mkdir infra
+mkdir infra/stack
+mkdir config
+rm -r bin
+rm -r lib/*
+sed -i '' 's/"\(npx ts-node --prefer-ts-exts\).*"/"\1 infra\/main.ts"/g' cdk.json
+```
+
+- configure access to nexus NPM repository:
+```bash
+echo '@ala:registry=https://nexus.ala.org.au/repository/js-snapshots/' >> .npmrc
+```
+
+- install ALA CDK library
+```bash
+npm install @ala/ala-cdk-libs@latest
+```
+
+- replace the main CDK entry point `infra/main.ts`
+```
+#!/usr/bin/env node
+import 'source-map-support/register';
+//import { ... } from './stack/...-stack';
+import { AppContext, AppContextError } from '@ala/ala-cdk-libs';
+
+try {
+
+  const appContext = new AppContext({
+      appConfigFileKey: 'APP_CONFIG',
+      projectPrefixType: ProjectPrefixType.NameHyphenStage,
+  });
+
+//  new ...Stack(appContext, appContext.appConfig.Stack.<stackname>);
+
+} catch (error) {
+  if (error instanceof AppContextError) {
+      console.error('[AppContextError]:', (error as AppContextError).message);
+  } else {
+      console.error('[Error]: not-handled-error', error);
+  }
+}
+```
 
 ## Agenda
 
@@ -96,19 +151,19 @@ Several principles were selected to improve DevOps efficiency through AWS CDK. C
 <project base>
 |-- aws
     |-- cdk.out
-    |-- config            <--- project / stage / stack infrastruture configuration
+    |-- config          <--- project / stage / stack infrastruture configuration
     |-- infra             
-        | main.ts         <--- definitions of projects stacks
-        |-- stack         <--- stack definitions
-    |-- lib               <--- custom CDK library extentions
+        | main.ts       <--- definitions of projects stacks
+        |-- stack       <--- stack definitions
+    |-- lib             <--- custom CDK library extentions
     |-- node_modules
-    |-- test             <--- CDK unit tests
+    |-- test            <--- CDK unit tests
     | .gitignore
     | .npmignore
     | .npmrc
-    | cdk.json           <--- CDK entry point
+    | cdk.json          <--- CDK entry point
     | jest.config.json
-    | package-lock.json
+    | package-lock.json 
     | package.json
     | README.md
     | tsconfig.json
