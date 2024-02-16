@@ -2,7 +2,7 @@ import * as codebuild from 'aws-cdk-lib/aws-codebuild';
 import * as codepipeline from 'aws-cdk-lib/aws-codepipeline';
 import * as codepipeline_actions from 'aws-cdk-lib/aws-codepipeline-actions';
 
-import { AppContext, PipelineBaseStack, StackConfig } from '@ala/ala-cdk-libs';
+import { AppContext, PipelineBaseStack, StackConfig } from '../../lib';
 
 
 export class PipelineStack extends PipelineBaseStack {
