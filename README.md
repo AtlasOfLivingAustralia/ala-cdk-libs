@@ -34,7 +34,7 @@ This template framework suports both CDK Ver2.
 
  [AWS Cloud Development Kit(CDK)](https://aws.amazon.com/cdk) is an open source software development framework to define your cloud application resources using familiar programming languages. After coding using CDK Construct and Stack, if you run it through CDK CLI, it is finally compiled and deployed through AWS CloudFormation.
 
-![1. AWSCDKIntro](docs/asset/aws_cdk_intro.png)
+![1. AWSCDKIntro](docs/assets/aws_cdk_intro.png)
 
  AWS CDK supports TypeScript, JavaScript, Python, Java, C#/.Net, and (in developer preview) Go. The template codes of this repository are implemented in **TypeScript**, because it clearly defines restrictions on types. Restrictions on types provide automated/powerful guide within IDE.
 
@@ -74,7 +74,6 @@ To execute this template codes, the following modules must be installed.
 - AWS CLI: aws --version
 - Node.js: node --version
 - AWS CDK: cdk --version
-- [jq](https://stedolan.github.io/jq/): jq --version
 
 Please refer to the kind guide in [CDK Workshop](https://cdkworkshop.com/15-prerequisites.html).
 
@@ -226,7 +225,7 @@ export APP_CONFIG=config/app-config-demo.json
 - **Purpose**: It should be possible to independently deploy each stack by removing the strong coupling between each stack.
 - **Approach**: If `Output` of CloudFormation is directly referenced between stacks, a strong dependency occurs and deployment becomes difficult when there are many stacks. To solve this problem, I recommend placing a key-value registry between them and referencing each other. Of course, this method does not change that the deployment order of each stack must be respected, but once stored in the parameter store, independent deployment is possible afterwards. Luckily, AWS provides **Parameter Store** in **System Manager**, which is the best solution for this.
 
-![stack-dependency](docs/asset/stack-dependency.png)
+![stack-dependency](docs/assets/stack-dependency.png)
 
  For frequently used parameter store access, we provide methods to help with this in our base class.
 
