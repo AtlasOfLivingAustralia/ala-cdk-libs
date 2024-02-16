@@ -1,0 +1,18 @@
+{
+    "Project": {
+        "Name": "ALA-CDK-libs",
+        "Stage": "Prod"
+    },
+
+    "Stack": {
+        "Pipeline": {
+            "Name": "Pipeline",
+            "Parameters": {
+                "connectionArn": "arn:aws:codestar-connections:ap-southeast-2:748909248546:connection/e336fd41-54c2-42e1-97c9-cbd6cc09fe88",
+                "owner": "AtlasOfLivingAustralia",
+                "repo": "ala-cdk-libs",
+                "branch": "main"
+            }
+        }
+    }
+}
