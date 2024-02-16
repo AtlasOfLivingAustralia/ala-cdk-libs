@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "paths": {
+      "@ala/ala-cdk-libs": [
+        "./lib/*"
+      ]
+    },
     "target": "ES2020",
     "module": "commonjs",
     "lib": [

@@ -1,0 +1,6 @@
+{
+  "files.exclude": {
+    "lib/**/*.d.ts": true,
+    "lib/**/*.js": true
+  }
+}
