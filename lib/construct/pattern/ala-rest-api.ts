@@ -34,10 +34,21 @@ export class AlaRestApi extends apigateway.RestApi {
         super(scope, scope.withProjectPrefix('Rest-API'), props)
     }
 
+
+    public loadSpecUrl(url: string, options: AlaSpecOptions = { }) {
+
+        fetch(url)
+            .then((resp: Response) => {
+                return resp.json()
+            }).then((json: any) => {
+                this.loadSpec(json, options)
+            })
+    }
+
     /**
      * load an OpenAPI specification in JSON format
      * 
-     * @param spec 
+     * @param spec the OpenAPI spec object
      */
     public loadSpec(spec: any, options: AlaSpecOptions = { }) {
 
@@ -61,8 +72,6 @@ export class AlaRestApi extends apigateway.RestApi {
             }
             
             if (activeMethods.length > 0) {
-
-                // TODO: perform mapping on path names
 
                 if (options.mapPaths && options.mapPaths[path]) {
                 
