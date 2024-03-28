@@ -18,6 +18,8 @@
 
 const fs = require('fs');
 const env = require('env-var');
+
+import * as yaml from 'js-yaml';
 import * as cdk from 'aws-cdk-lib';
 
 import { AppConfig } from './app-config';
@@ -130,7 +132,18 @@ export class AppContext {
     }
 
     private loadAppConfigFile(filePath: string, contextArgs?: string[]): any {
-        let appConfig = JSON.parse(fs.readFileSync(filePath).toString());
+
+        const configFile = fs.readFileSync(filePath)
+        let appConfig
+
+        if (filePath.endsWith('.json')) {
+            appConfig = JSON.parse(configFile.toString());
+        } else if (filePath.endsWith('.yaml')) {
+            appConfig = yaml.load(configFile) as any
+        } else {
+            throw new Error(`unknown config file type ${filePath}`)
+        }
+
         let projectPrefix = this.getProjectPrefix(appConfig.Project.Name, appConfig.Project.Stage);
 
         if (contextArgs != undefined) {
