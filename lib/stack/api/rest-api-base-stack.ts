@@ -1,8 +1,7 @@
-import { IRestApi } from "aws-cdk-lib/aws-apigateway";
 import { BaseStack } from "../base/base-stack";
 import { AppContext } from "../../app-context";
 import { StackConfig } from "../../app-config";
-import { AlaRestApi } from "../../construct/pattern/ala-rest-api";
+import { AlaRestApi, AlaSpecOptions } from "../../construct/pattern/ala-rest-api";
 
 export abstract class RestApiBaseStack extends BaseStack {
 
@@ -21,6 +20,10 @@ export abstract class RestApiBaseStack extends BaseStack {
             // // env: this.commonProps.env,
             // variables: this.commonProps.variables
         })
+    }
+
+    loadSpecUrl(url: string, options: AlaSpecOptions = { }) {
+        this.restApi.loadSpecUrl(url, options)
     }
 
 }
