@@ -41,7 +41,7 @@ npm install @ala/ala-cdk-libs@latest
 #!/usr/bin/env node
 import 'source-map-support/register';
 //import { ... } from './stack/...-stack';
-import { AppContext, AppContextError } from '@ala/ala-cdk-libs';
+import { AppContext, AppContextError, ProjectPrefixType } from '@ala/ala-cdk-libs';
 
 try {
 
