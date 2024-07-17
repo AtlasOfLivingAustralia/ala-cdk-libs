@@ -87,8 +87,8 @@ export class AppContext {
             appConfig: this.appConfig,
             appConfigPath: appConfigFile,
             env: {
-                account: this.appConfig.Project.Account,
-                region: this.appConfig.Project.Region
+                account: this.appConfig.Project.Account || process.env.CDK_DEFAULT_ACCOUNT,
+                region: this.appConfig.Project.Region || process.env.CDK_DEFAULT_REGION
             },
             variables: {}
         }
