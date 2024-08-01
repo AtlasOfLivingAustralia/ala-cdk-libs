@@ -37,7 +37,7 @@ export interface StaticSpaProps {
 
 export interface ICustomDomain {
 
-    readonly hostedZone?: route53.IHostedZone
+    readonly hostedZone: route53.IHostedZone
     readonly domainNames: string[]
     readonly certificate: cert.ICertificate
 }
@@ -94,8 +94,5 @@ export class StaticSpa extends Resource implements IStaticSpa {
                     }
                 })
         }
-
-        new CfnOutput(this, 'BucketArn', { key: 'BucketArn', value: this.bucket.bucketArn})
-        new CfnOutput(this, 'DistributionId', { key: 'DistributionId', value: this.distribution.distributionId })
     }
 }

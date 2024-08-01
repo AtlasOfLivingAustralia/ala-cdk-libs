@@ -76,7 +76,7 @@ export class AlaPipeline extends codepipeline.Pipeline {
     constructor(scope: BaseStack, props?: AlaPipelineProps) {
 
         super(scope, scope.withProjectPrefix('Pipeline'), {
-            pipelineName: scope.withProjectPrefix('Pipeline'),
+            pipelineName: scope.stackName,
             pipelineType: codepipeline.PipelineType.V2,
             ...props
         })
@@ -91,6 +91,7 @@ export class AlaPipeline extends codepipeline.Pipeline {
         const sourceAction = new codepipeline_actions.CodeStarConnectionsSourceAction({
             actionName: 'Checkout',
             codeBuildCloneOutput: true,
+            triggerOnPush: true,
             ...sourceProps,
             output: sourceArtifact
         })
@@ -113,12 +114,13 @@ export class AlaPipeline extends codepipeline.Pipeline {
         }
     }
 
-    addCdkStage(cdkProps: ICdkProps) {
+    addCdkStage(cdkProps: ICdkProps): codepipeline.Artifact {
 
         const buildArtifact = new codepipeline.Artifact()
+        const stackArtifact = new codepipeline.Artifact('InfraStack')
 
         this.addStage({
-            stageName: 'Build',
+            stageName: 'Build-Infrastruture',
             actions: [
                 new codepipeline_actions.CodeBuildAction({
                     actionName: 'Synthesize-CF-Template',
@@ -137,12 +139,12 @@ export class AlaPipeline extends codepipeline.Pipeline {
                                 },
                                 build: {
                                     commands: [
-                                        `npx cdk synth \'${cdkProps.stackName}\'--context APP_CONFIG=config/${cdkProps.configFile}`
+                                        `npx cdk synth \'${cdkProps.stackName}\' --context APP_CONFIG=config/${cdkProps.configFile}`
                                     ]
                                 },
                             },
                             artifacts: {
-                                'base-directory': './infra/cdk.out',
+                                'base-directory': `./${cdkProps.baseDirectory ? cdkProps.baseDirectory : 'cicd'}/cdk.out`,
                                 files: '**/**'
                             }
                         })
@@ -156,10 +158,14 @@ export class AlaPipeline extends codepipeline.Pipeline {
                     stackName: cdkProps.stackName,
                     templatePath: buildArtifact.atPath(`${cdkProps.stackName}.template.json`),
                     adminPermissions: true,
+                    output: stackArtifact,
+                    outputFileName: `${cdkProps.stackName}.output.json`,
                     runOrder: 2
                 })
             ]
         })
+
+        return stackArtifact
     }
 
 }
