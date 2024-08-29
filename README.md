@@ -21,6 +21,7 @@ cdk init --language=typescript
 mkdir infra
 mkdir infra/stack
 mkdir config
+mv bin/*.ts infra/main.ts
 rm -r bin
 rm -r lib/*
 sed -i '' 's/"\(npx ts-node --prefer-ts-exts\).*"/"\1 infra\/main.ts"/g' cdk.json
