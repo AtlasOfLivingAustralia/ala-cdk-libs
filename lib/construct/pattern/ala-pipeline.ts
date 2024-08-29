@@ -67,6 +67,7 @@ export interface ICdkProps {
     baseDirectory?: string
     configFile: string
     stackName: string
+    parameterOverrides?: { [key: string]: string }
 }
 
 export class AlaPipeline extends codepipeline.Pipeline {
@@ -160,6 +161,7 @@ export class AlaPipeline extends codepipeline.Pipeline {
                     adminPermissions: true,
                     output: stackArtifact,
                     outputFileName: `${cdkProps.stackName}.output.json`,
+                    parameterOverrides: cdkProps.parameterOverrides,
                     runOrder: 2
                 })
             ]
