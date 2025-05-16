@@ -66,6 +66,7 @@ export interface ISourceProps {
 export interface ICdkProps {
     baseDirectory?: string
     configFile: string
+    configPath?: string
     stackName: string
     parameterOverrides?: { [key: string]: string }
 }
@@ -140,7 +141,7 @@ export class AlaPipeline extends codepipeline.Pipeline {
                                 },
                                 build: {
                                     commands: [
-                                        `npx cdk synth \'${cdkProps.stackName}\' --context APP_CONFIG=config/${cdkProps.configFile}`
+                                        `npx cdk synth \'${cdkProps.stackName}\' --context APP_CONFIG=${cdkProps.configPath ? cdkProps.configPath : 'config'}/${cdkProps.configFile}`
                                     ]
                                 },
                             },
