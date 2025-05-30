@@ -58,7 +58,7 @@ export class StaticSpa extends Resource implements IStaticSpa {
         this.distribution = new cloudfront.Distribution(this, 'Distribution', {
             defaultRootObject: props.entryPage ?? undefined,
             defaultBehavior: {
-                origin: new origins.S3Origin(this.bucket, {
+                origin: origins.S3BucketOrigin.withOriginAccessControl(this.bucket, {
                     originPath: props.originPath ?? '/'
                 }),
                 viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS
